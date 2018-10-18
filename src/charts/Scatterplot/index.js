@@ -45,20 +45,31 @@ const Down = () => (
 class Scatterplot extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { activeYear: "" };
+    this.state = { "2018": true, "2014": true, active: "" };
     this.handleLegendClick = this.handleLegendClick.bind(this);
     this.clickOut = this.clickOut.bind(this);
+    this.onCircleHoverIn = this.onCircleHoverIn.bind(this);
+    this.onCircleHoverOut = this.onCircleHoverOut.bind(this);
   }
 
   handleLegendClick(e, year) {
-    this.setState({ activeYear: year });
-    selectAll(`.dot`).attr("opacity", 0.2);
-    selectAll(`.year-${year}`).attr("opacity", 1);
+    const otherYear = year === "2018" ? "2014" : "2018";
+    this.setState(prevState => ({
+      [year]: true,
+      [otherYear]: prevState[year] && !prevState[otherYear] ? true : false
+    }));
   }
 
   clickOut() {
-    this.setState({ activeYear: "" });
-    selectAll(`.dot`).attr("opacity", 1);
+    this.setState({ "2018": true, "2014": true });
+  }
+
+  onCircleHoverIn(country) {
+    this.setState({ active: country });
+  }
+
+  onCircleHoverOut() {
+    this.setState({ active: "" });
   }
 
   render() {
@@ -164,11 +175,23 @@ class Scatterplot extends React.Component {
                         <GlyphCircle
                           className={`dot ${key} year-${point.year}`}
                           key={`point-${i}`}
-                          stroke={"rgba(0,0,0,0.3)"}
+                          stroke={
+                            this.state.active === key
+                              ? "#333"
+                              : "rgba(0,0,0,0.3)"
+                          }
+                          strokeWidth={this.state.active === key ? 2 : 1}
                           fill={point.year === "2018" ? "#22C8A3" : "#4C81DB"}
                           left={xScale(x(point))}
                           top={yScale(y(point))}
                           style={{ cursor: "pointer" }}
+                          opacity={
+                            (this.state[point.year] &&
+                              this.state.active.length === 0) ||
+                            this.state.active === key
+                              ? 1
+                              : 0.2
+                          }
                           size={100}
                           onMouseEnter={() => event => {
                             const coords = localPoint(
@@ -180,11 +203,7 @@ class Scatterplot extends React.Component {
                               tooltipTop: coords.y,
                               tooltipData: point
                             });
-                            selectAll(".dot").attr("opacity", 0.25);
-                            selectAll(`.${key}`)
-                              .attr("opacity", 1)
-                              .attr("stroke", "#333")
-                              .attr("stroke-width", 2);
+                            this.onCircleHoverIn(key);
                           }}
                           onTouchStart={() => event => {
                             const coords = localPoint(
@@ -196,13 +215,11 @@ class Scatterplot extends React.Component {
                               tooltipTop: coords.y,
                               tooltipData: point
                             });
+                            this.onCircleHoverIn(key);
                           }}
                           onMouseLeave={() => event => {
                             this.props.hideTooltip();
-                            selectAll(".dot")
-                              .attr("opacity", 1)
-                              .attr("stroke", "rgba(0,0,0,0.3)")
-                              .attr("stroke-width", 1);
+                            this.onCircleHoverOut();
                           }}
                         />
                       );
