@@ -31,6 +31,13 @@ $desktop-padding: 25px;
   font-size: 14px;
 }
 
+.rt-tr.-even {
+  background-color: #E5E5E5 !important;
+}
+// .rt-tr.-odd {
+//   background-color: #fff !important;
+// }
+
 .ReactTable .rt-resizable-header {
   padding: 6px 24px !important;
   -webkit-box-shadow: none !important;
@@ -105,6 +112,7 @@ $desktop-padding: 25px;
   height: $w2;
   padding: 0 $s1;
   margin: 0 $s2;
+  border: 1px solid #d4d4d4;
 }
 
 .pagination__total-pages {

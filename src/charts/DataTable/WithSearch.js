@@ -20,7 +20,7 @@ export default function withSearch(Table) {
         _data = data.filter(row => {
           const columns = Object.keys(row);
           return columns.some(column =>
-            row[column].toLowerCase().includes(search.toLowerCase())
+            typeof(row[column]) === "string" && row[column].toLowerCase().includes(search.toLowerCase())
           );
         });
       }

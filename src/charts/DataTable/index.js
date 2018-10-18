@@ -10,36 +10,31 @@ import "./DataTable.scss";
 class DataTable extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { filter: "All" };
+    this.updateFilter = this.updateFilter.bind(this);
+  }
+
+  updateFilter(val) {
+    this.setState({ filter: val });
   }
 
   render() {
-    const {
-      data,
-      columns,
-      title,
-      subtitle,
-      source,
-      showPagination
-    } = this.props;
+    const { data, filter, columns, showPagination } = this.props;
+
+    let _data = data.filter(val => filter[val.country_type]);
 
     return (
-      <ChartContainer
-        title={title}
-        subtitle={subtitle}
-        source={source}
-        width={1200}
-        height={1000}
-      >
-        {this.props.children}
+      <React.Fragment>
+        <div className="dv-data-table__filter">{this.props.children}</div>
         <ReactTable
-          data={data}
+          data={_data}
           columns={columns}
           className="-striped"
           showPagination={showPagination ? showPagination : false}
           showPageSizeOptions={false}
           PaginationComponent={Pagination}
         />
-      </ChartContainer>
+      </React.Fragment>
     );
   }
 }

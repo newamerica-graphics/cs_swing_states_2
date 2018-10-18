@@ -10,11 +10,11 @@ class Slider extends React.Component {
 
   handleChange(e) {
     this.setState({ value: e.target.value });
-    this.props.onChange(e.target.value);
+    this.props.onChange(e.target);
   }
 
   render() {
-    const { label, min, max, step } = this.props;
+    const { label, min, max, step, id, secondary } = this.props;
     const { value } = this.state;
     const gradValue = Math.round((+value / +max) * 1 * 100);
     return (
@@ -26,7 +26,10 @@ class Slider extends React.Component {
           </span>
         </div>
         <input
-          className="dv-range-slider__range"
+          id={id}
+          className={`dv-range-slider__range ${
+            secondary ? "dv-range-slider__range-secondary" : ""
+          }`}
           type="range"
           value={value}
           min={min}
@@ -34,7 +37,9 @@ class Slider extends React.Component {
           step={step || 1}
           onChange={e => this.handleChange(e)}
           style={{
-            background: `linear-gradient(90deg,#2dd1ac ${gradValue}%,#e3e3e3 ${gradValue}%)`
+            background: `linear-gradient(90deg,${
+              secondary ? "#333" : "#2dd1ac"
+            } ${gradValue}%,#e3e3e3 ${gradValue}%)`
           }}
         />
       </div>

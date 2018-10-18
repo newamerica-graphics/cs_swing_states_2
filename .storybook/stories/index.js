@@ -24,6 +24,7 @@ import Select from "../../src/components/Select";
 import SelectReadme from "../../src/components/Select/README.md";
 import Slider from "../../src/components/Slider";
 import SliderReadme from "../../src/components/Slider/README.md";
+import Toggle from "../../src/components/Toggle";
 import BaseMap from "../../src/components/BaseMap";
 import BaseMapReadme from "../../src/components/BaseMap/README.md";
 import { cityTemperature } from "@vx/mock-data";
@@ -216,6 +217,23 @@ storiesOf("Components", module)
         step="1"
         value="5"
         onChange={val => console.log(val)}
+      />
+    );
+  });
+storiesOf("Components", module)
+  .addDecorator(withKnobs)
+  .addDecorator(
+    styles({
+      padding: "1rem"
+    })
+  )
+  .add("Toggle", () => {
+    return (
+      <Toggle
+        onLabel="On"
+        offLabel="Off"
+        onChange={val => console.log(val)}
+        checked
       />
     );
   });

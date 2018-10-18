@@ -1,0 +1,106 @@
+@import "./scss/breakpoints";
+.full {
+  max-width: 100%;
+  padding: 0;
+}
+
+h1.dv-title {
+  font-size: 20px;
+  line-height: 1.2;
+  margin: 0;
+  padding: 10px 0;
+}
+
+.dv-description {
+  font-size: 14px;
+  font-family: "Circular";
+  line-height: 1.5;
+  margin: 0;
+  padding: 0 0 2rem 0;
+}
+
+.dv-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.dv-controls {
+  width: calc(100%);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.dv-map,
+.dv-table {
+  width: calc(100%);
+  height: 50vh;
+  background-color: #e5e5e5;
+}
+
+.dv-table {
+  height: auto;
+  padding: 2rem 1rem;
+}
+
+.switch-view {
+  padding: 2rem 0;
+  border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed;
+}
+
+.sliders {
+  padding-top: 2rem;
+}
+
+.dv-map-controls {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.dv-data-table__filter {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+@include breakpoint(large) {
+  .dv-app {
+    flex-direction: row;
+    height: 100vh;
+  }
+  .dv-controls {
+    width: calc(100% / 3);
+    padding: 2rem 4rem;
+    overflow: scroll;
+    height: 100%;
+  }
+  .dv-map,
+  .dv-table {
+    width: calc(100% / 1.5);
+  }
+  .dv-map {
+    height: 100%;
+  }
+  .dv-table {
+    height: 100%;
+    overflow: scroll;
+    padding: 2rem 4rem;
+  }
+  .dv-data-table__filter {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.dv-choro-legend {
+  svg {
+    width: 15px;
+  }
+}

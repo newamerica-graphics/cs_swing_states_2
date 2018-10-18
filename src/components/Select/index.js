@@ -14,6 +14,9 @@ export default class Select extends React.Component {
         className={`dv-select ${className || ""}`}
         style={style}
       >
+        <option value="" className="dv-filter-by" disabled selected hidden>
+          Filter by...
+        </option>
         {options.map((option, i) => (
           <option selected={option === selected ? true : false} value={option}>
             {option}
