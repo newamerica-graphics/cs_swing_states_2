@@ -140,7 +140,7 @@ export default class SwingStates extends React.Component {
         <div className="dv-controls">
           <div>
             <div className="dv-title-container">
-              <h1 className="dv-title">{title}</h1>
+              <h2 className="dv-title">{title}</h2>
               <p className="dv-description">{description}</p>
             </div>
             <div className="switch-view">
@@ -185,7 +185,6 @@ export default class SwingStates extends React.Component {
                 onChange={this.handleCheckboxChange}
                 orientation="horizontal"
                 style={{
-                  backgroundColor: "#fff",
                   padding: "0",
                   margin: "0"
                 }}
